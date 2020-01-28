@@ -11,15 +11,16 @@ import java.util.ArrayList;
 
 public class DataBaseManipulate extends SQLiteOpenHelper {
 
-
+    // Database Version
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
     private static final String DATABASE_NAME = "obivous_db";
 
-
+    // Database table name
     public static final String TABLE_NOTES_DETAILS = "notes_table";
 
+    // Database table column name
     private static final String KEY_ID = "id";
     private static final String KEY_TITLE = "title";
     private static final String KEY_CONTENT = "content";
@@ -55,7 +56,7 @@ public class DataBaseManipulate extends SQLiteOpenHelper {
     }
     public Cursor getNotesList(){
         sd=this.getWritableDatabase();
-        String query="SELECT * from "+ TABLE_NOTES_DETAILS;
+        String query="SELECT * from "+ TABLE_NOTES_DETAILS + " order by id DESC";   // reverse order
         Cursor c=  sd.rawQuery(query,null);
         return  c;
     }

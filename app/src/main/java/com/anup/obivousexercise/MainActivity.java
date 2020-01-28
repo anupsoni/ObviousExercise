@@ -18,10 +18,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    DataBaseManipulate db;
-    Context context;
-    EditText titleEdit,contentEdit;
-    Button save;
+    DataBaseManipulate db;   // database instance
+    Context context;          // class instance
+    EditText titleEdit,contentEdit; // title and content text field
+    Button save;  // save button for saving notes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +49,10 @@ public class MainActivity extends AppCompatActivity {
                      cv.put("timestamp",String.valueOf(System.currentTimeMillis()));
                      long status = db.InsertData(DataBaseManipulate.TABLE_NOTES_DETAILS,cv,"id");
                      if (status > 0){
+                         // note is created
                          Toast.makeText(context,"Notes inserted successfully",Toast.LENGTH_LONG).show();
                      }else{
+                         // note is not created
                          Toast.makeText(context,"Notes inserted failed",Toast.LENGTH_LONG).show();
                      }
                  }

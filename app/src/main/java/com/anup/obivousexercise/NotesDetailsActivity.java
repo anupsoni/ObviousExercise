@@ -23,7 +23,7 @@ public class NotesDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notes_details);
         context = NotesDetailsActivity.this;
         db = new DataBaseManipulate(context);
-        timestamp = getIntent().getStringExtra("timestamp");
+        timestamp = getIntent().getStringExtra("timestamp");  // selected timestamp to read that notes
         time = (TextView)findViewById(R.id.timestamp);
         title = (TextView)findViewById(R.id.title);
         contentEdit = (TextView)findViewById(R.id.content);
