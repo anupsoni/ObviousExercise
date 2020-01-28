@@ -17,9 +17,13 @@ public class DataBaseManipulate extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "obivous_db";
 
-    // Login table name
+
     public static final String TABLE_NOTES_DETAILS = "notes_table";
 
+    private static final String KEY_ID = "id";
+    private static final String KEY_TITLE = "title";
+    private static final String KEY_CONTENT = "content";
+    private static final String KEY_TIMESTAMP = "timestamp";
     SQLiteDatabase sd;
 
     public DataBaseManipulate(Context context) {
@@ -29,9 +33,10 @@ public class DataBaseManipulate extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE_LOGIN="CREATE TABLE "+TABLE_NOTES_DETAILS+"(id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT," +
-                "title TEXT,content TEXT)";
-        db.execSQL(CREATE_TABLE_LOGIN);
+        String CREATE_NOTES_TABLE = "CREATE TABLE " + TABLE_NOTES_DETAILS + "("
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_TITLE + " TEXT," + KEY_CONTENT + " TEXT,"+ KEY_TIMESTAMP +
+                " TEXT"+");";
+        db.execSQL(CREATE_NOTES_TABLE);
     }
 
     @Override
@@ -51,6 +56,12 @@ public class DataBaseManipulate extends SQLiteOpenHelper {
     public Cursor getNotesList(){
         sd=this.getWritableDatabase();
         String query="SELECT * from "+ TABLE_NOTES_DETAILS;
+        Cursor c=  sd.rawQuery(query,null);
+        return  c;
+    }
+    public Cursor getNotesDetails(String timestamp){
+        sd=this.getWritableDatabase();
+        String query="SELECT * from "+ TABLE_NOTES_DETAILS + " WHERE "+ KEY_TIMESTAMP + "='"+timestamp+"'";
         Cursor c=  sd.rawQuery(query,null);
         return  c;
     }

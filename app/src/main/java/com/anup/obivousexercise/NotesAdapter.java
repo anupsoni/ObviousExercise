@@ -1,5 +1,7 @@
 package com.anup.obivousexercise;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,10 @@ import java.util.ArrayList;
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder>{
 
     private ArrayList<DataModel> list;
-    public NotesAdapter(ArrayList<DataModel> list) {
+    Context context;
+    public NotesAdapter(Context context,ArrayList<DataModel> list) {
         this.list = list;
+        this.context = context;
     }
 
     @NonNull
@@ -28,8 +32,16 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        DataModel notesModel = list.get(position);
+        final DataModel notesModel = list.get(position);
         holder.title.setText(notesModel.getTitle());
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,NotesDetailsActivity.class);
+                intent.putExtra("timestamp",notesModel.getTimestamp());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
